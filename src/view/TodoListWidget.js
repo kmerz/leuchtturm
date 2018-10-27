@@ -2,8 +2,17 @@ import React, {Component} from 'react';
 import {Platform, Text, View, SectionList, StyleSheet} from 'react-native';
 
 import Todo from './../model/Todo';
+import TodoListItem from './../view/TodoListItem';
 
 export default class TodoListWidget extends Component {
+
+  updateTodo = (oldTodo, newTodo) => {
+    const newTodoList = this.props.todos.toBuilder()
+                            .removeTodo(oldTodo)
+                            .addTodo(newTodo)
+                            .build();
+    this.props.onUpdateTodo(newTodoList);
+  };
 
   render() {
     const style = StyleSheet.create({
@@ -13,11 +22,6 @@ export default class TodoListWidget extends Component {
         color: '#333',
         marginLeft: 10,
         padding: 5,
-      },
-      textStyle: {
-        fontSize: 18,
-        color: '#333',
-        marginLeft: 10,
       },
       sectinoStyle: {
         paddingBottom: 10,
@@ -29,11 +33,14 @@ export default class TodoListWidget extends Component {
       { title: "Today", data: this.props.todos.today },
       { title: "Tomorrow", data: this.props.todos.tomorrow },
     ];
+
     const sectionList = (
       <SectionList
       style={style.sectinoStyle}
         renderItem={
-          ({item, index, section}) => <Text style={style.textStyle} key={index}>{item.task}</Text>}
+          ({item, index, section}) =>
+            <TodoListItem key={index} todo={item}
+                              toggleTodo={this.updateTodo} /> }
         renderSectionHeader={
           ({section: {title}}) => (
             <View style={{

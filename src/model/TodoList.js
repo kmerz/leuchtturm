@@ -19,19 +19,30 @@ class TodoList {
     return Math.floor(days);
   }
 
+  sort(a, b) {
+    if (a.done > b.done) {
+      return 1;
+    }
+    if (a.done < b.done) {
+      return -1;
+    }
+    return 0;
+  }
+
   get today() {
     const now = new Date();
     return this._value.todos.filter(
       todo => this.daysBetween(now, todo.due) === 0
-    );
+    ).sort(this.sort);
   }
 
   get tomorrow() {
     const now = new Date();
     return this._value.todos.filter(
       todo => this.daysBetween(now, todo.due) === 1
-    );
+    ).sort(this.sort);
   }
+
 
   toBuilder() {
     const { todos } = this._value;
@@ -57,6 +68,16 @@ class Builder {
   addTodo(todo) {
     const newTodos = this.value.todos.slice(0);
     newTodos.push(todo);
+    this.value.todos = newTodos;
+    return this;
+  }
+
+  removeTodo(todo) {
+    const newTodos = this.value.todos.slice(0);
+    const todoIndex = newTodos.findIndex((t) => t.task === todo.task);
+    if (todoIndex > -1) {
+      newTodos.splice(todoIndex, 1);
+    }
     this.value.todos = newTodos;
     return this;
   }

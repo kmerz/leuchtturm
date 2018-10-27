@@ -10,13 +10,22 @@ import AddTodo from './../view/AddTodo.js';
 export default class Layout extends Component {
   state = {
     showAddModal: false,
-    todoList: new TodoList([]),
+    todoList: new TodoList([
+      new Todo("Take out the trash", new Date()),
+      new Todo("Feed the cat", new Date()),
+      new Todo("Do the dishes", new Date(), true),
+      new Todo("Take a really long walk. Think about Sean Paul Satre.", new Date(), true),
+    ]),
   };
 
   addTodo = (todo) => {
     const todoListBuider = this.state.todoList.toBuilder();
     const newTodoList = todoListBuider.addTodo(todo).build();
     this.setState({todoList: newTodoList});
+  };
+
+  updateTodoList = (todoList) => {
+    this.setState({todoList});
   };
 
   render() {
@@ -27,7 +36,10 @@ export default class Layout extends Component {
           alignItems: 'stretch',
         }}>
         <Header />
-        <TodoListWidget todos={this.state.todoList}/>
+        <TodoListWidget
+          onUpdateTodo={this.updateTodoList}
+          todos={this.state.todoList}
+        />
         <Button
           onPress={() => this.setState({showAddModal: true})}
           title="Add Todo"

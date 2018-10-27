@@ -1,6 +1,6 @@
 class Todo {
-  constructor(task, due) {
-    this._value = { task, due };
+  constructor(task, due, done = false) {
+    this._value = { task, due, done };
   }
 
   get task() {
@@ -11,15 +11,21 @@ class Todo {
     return this._value.due;
   }
 
+  get done() {
+    return this._value.done;
+  }
+
   toBuilder() {
-    const { task, due } = this._value;
+    const { task, due, done } = this._value;
     return new Builder()
       .task(task)
-      .due(due);
+      .due(due)
+      .done(done);
   }
 
   static builder() {
-    return new Builder();
+    return new Builder()
+      .done(false);
   }
 }
 
@@ -38,9 +44,14 @@ class Builder {
     return this;
   }
 
+  done(done) {
+    this.value.done = done;
+    return this;
+  }
+
   build() {
-    const { task, due } = this.value;
-    return new Todo(task, due);
+    const { task, due, done } = this.value;
+    return new Todo(task, due, done);
   }
 }
 
