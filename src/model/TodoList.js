@@ -50,7 +50,7 @@ class TodoList {
     return this._value.todos.filter(
       todo => {
         const daysBetween = this.daysBetween(now, todo.due);
-        return daysBetween > 1 && daysBetween < 4;
+        return daysBetween > 1;
       }
     ).sort(this.sort);
   }

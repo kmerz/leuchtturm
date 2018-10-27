@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Platform, View, Text, Button} from 'react-native';
 
 import TodoScreen from './TodoScreen';
+import NoteScreen from './NoteScreen';
 import Header from './Header';
 
 export default class Navigation extends Component {
@@ -13,7 +14,7 @@ export default class Navigation extends Component {
     if (this.state.selected == 'todo') {
       return (<TodoScreen />);
     } else {
-      return (<Text>Hallo</Text>);
+      return (<NoteScreen />);
     }
   }
 
