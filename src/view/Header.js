@@ -7,16 +7,17 @@ export default class Header extends Component {
     const style = StyleSheet.create({
       textStyle: {
         fontSize: 30,
-        fontFamily: 'Cochin',
+        fontFamily: 'serif',
         fontWeight: 'bold',
         color: '#333',
-        marginLeft: 10,
+        marginRight: 10,
+        textAlign: 'right',
       }
     });
 
     return (
         <View>
-          <Text style={style.textStyle}>leuchtturm</Text>
+          <Text style={style.textStyle}>leuchtturm.</Text>
         </View>
     );
   }
