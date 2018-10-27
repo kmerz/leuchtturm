@@ -1,12 +1,21 @@
 import React, {Component} from 'react';
 import {Platform, View, Button, ScrollView} from 'react-native';
 
-import NoteListWidget from './NoteListWidget'
+import NoteListWidget from './NoteListWidget';
+import NoteList from '../model/NoteList';
+import Note from '../model/Note';
 
 export default class TodoScreen extends Component {
-  state = {
-    showAddModal: false,
-  };
+
+  constructor(props) {
+    super(props);
+    const note1 = new Note("Franz macht blaue", " A rather long story");
+    const notes = new NoteList([note1]);
+    this.state = {
+      showAddModal: false,
+      noteList: notes,
+    };
+  }
 
   render() {
     return (
@@ -16,7 +25,10 @@ export default class TodoScreen extends Component {
         alignItems: 'stretch',
       }}>
         <ScrollView>
-        <NoteListWidget />
+          <NoteListWidget
+            noteList={this.state.noteList}
+            updateNoteList={(newNotes) => this.setState({nodeList: newNotes})}
+          />
         </ScrollView>
         <Button
           onPress={() => this.setState({showAddModal: true})}
