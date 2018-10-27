@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, Text, TextInput, View, Modal, Button, DatePickerAndroid} from 'react-native';
+import {Platform, Text, TextInput, ScrollView, View, Modal, Button, DatePickerAndroid} from 'react-native';
 
 import Todo from './../model/Todo';
 import TodoList from './../model/TodoList';
@@ -37,41 +37,43 @@ export default class AddTodo extends Component {
 
   render() {
     return (
-        <View style={{marginTop: 22}}>
+      <View style={{marginTop: 22}}>
         <Modal
-      animationType="slide"
-      transparent={false}
-      visible={this.props.modalVisible}
-      onRequestClose={() => {
-        this.props.closeModal();
-      }}>
-        <View style={{marginTop: 22}}>
-        <View>
-        <Text
-          style={{fontSize: 20, fontWeight: 'bold', margin: 10}}
-        >New Todo</Text>
-        <TextInput
-          style={{margin: 10}}
-          multiline
-          placeholder="Add todo description..."
-          onChangeText={this.onTodoChange}
-        />
-        <Button
-          onPress={this.datePicker}
-          title="Select due"
-          color={"#97ead2"} />
-        <Button
-          onPress={this.onAddTodo}
-          title="Add Todo"
-          color={"#00a390"} />
-        <Button
-          onPress={() => this.props.closeModal()}
-          title="Close"
-          color={"#594157"} />
-        </View>
-        </View>
+          animationType="slide"
+          transparent={false}
+          visible={this.props.modalVisible}
+          onRequestClose={() => {
+              this.props.closeModal();
+          }}>
+          <View style={{marginTop: 22}}>
+            <View>
+              <Text
+                style={{fontSize: 20, fontWeight: 'bold', margin: 10}}
+              >New Todo</Text>
+              <ScrollView>
+                <TextInput
+                  style={{margin: 5, maxHeight: 170 }}
+                  multiline
+                  placeholder="Add todo description..."
+                  onChangeText={this.onTodoChange}
+                />
+              </ScrollView>
+              <Button
+                onPress={this.datePicker}
+                title="Select due"
+                color={"#97ead2"} />
+              <Button
+                onPress={this.onAddTodo}
+                title="Add Todo"
+                color={"#00a390"} />
+              <Button
+                onPress={() => this.props.closeModal()}
+                title="Close"
+                color={"#594157"} />
+            </View>
+          </View>
         </Modal>
-        </View>
+      </View>
     );
   }
 }

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, Text, TextInput, View, Modal, Button, DatePickerAndroid} from 'react-native';
+import {Platform, Text, TextInput, ScrollView, View, Modal, Button} from 'react-native';
 
 import Note from './../model/Note';
 import NoteList from './../model/NoteList';
@@ -38,24 +38,36 @@ export default class AddNote extends Component {
                 style={{fontSize: 20, fontWeight: 'bold', margin: 10}}
               >New Note</Text>
               <TextInput
-                style={{margin: 10}}
+                style={{margin: 5}}
                 placeholder="Add note description..."
                 onChangeText={(text) => this.onInputChange('header', text)}
               />
-              <TextInput
-                style={{margin: 10}}
-                multiline
-                placeholder="Add note..."
-                onChangeText={(text) => this.onInputChange('note', text)}
-              />
+              <ScrollView>
+                <TextInput
+                  style={{margin: 5, maxHeight: 170 }}
+                  multiline
+                  placeholder="Add note..."
+                  onChangeText={(text) => this.onInputChange('note', text)}
+                />
+              </ScrollView>
               <Button
                 onPress={this.onAddNote}
-                title="Add Todo"
-                color={"#00a390"} />
+                title="Add Note"
+                color={"#00a390"}
+                style={{
+                  alignSelf: 'flex-end',
+                  position: 'absolute',
+                  bottom: 35
+                }} />
               <Button
                 onPress={() => this.props.closeModal()}
                 title="Close"
-                color={"#594157"} />
+                color={"#594157"}
+                style={{
+                  alignSelf: 'flex-end',
+                  position: 'absolute',
+                  bottom: 35
+                }} />
             </View>
           </View>
         </Modal>

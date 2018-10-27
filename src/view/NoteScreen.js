@@ -7,7 +7,6 @@ import Note from '../model/Note';
 import AddNote from './AddNote';
 
 export default class TodoScreen extends Component {
-
   constructor(props) {
     super(props);
     const note1 = new Note("Franz macht blaue", " A rather long story");
