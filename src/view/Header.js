@@ -9,13 +9,13 @@ export default class Header extends Component {
         fontSize: 30,
         fontFamily: 'Cochin',
         fontWeight: 'bold',
-        color: '#f9f7f3',
+        color: '#333',
         marginLeft: 10,
       }
     });
 
     return (
-        <View style={{backgroundColor: '#1186c5'}}>
+        <View>
           <Text style={style.textStyle}>leuchtturm</Text>
         </View>
     );

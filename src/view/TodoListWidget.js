@@ -3,31 +3,31 @@ import {Platform, Text, View, SectionList, StyleSheet} from 'react-native';
 
 import Todo from './../model/Todo';
 
-export default class Header extends Component {
+export default class TodoListWidget extends Component {
 
   render() {
     const style = StyleSheet.create({
       headerStyle: {
         fontSize: 20,
         fontWeight: 'bold',
-        color: '#555',
-        paddingTop: 5,
+        color: '#333',
+        marginLeft: 10,
+        padding: 5,
       },
       textStyle: {
         fontSize: 18,
-        color: '#555',
+        color: '#333',
         marginLeft: 10,
       },
       sectinoStyle: {
-        marginLeft: 20,
         paddingBottom: 10,
         paddingTop: 10,
       }
     });
 
     const sections = [
-      {title: "Today", data: [ new Todo("this app"), new Todo("this app as well") ]},
-      {title: "Tomorrow", data: [ new Todo("and so on")]},
+      { title: "Today", data: this.props.todos.today },
+      { title: "Tomorrow", data: this.props.todos.tomorrow },
     ];
     const sectionList = (
       <SectionList
@@ -35,14 +35,21 @@ export default class Header extends Component {
         renderItem={
           ({item, index, section}) => <Text style={style.textStyle} key={index}>{item.task}</Text>}
         renderSectionHeader={
-          ({section: {title}}) => <Text style={style.headerStyle}>{title}</Text>}
+          ({section: {title}}) => (
+            <View style={{
+              borderWidth: 1,
+              borderColor: '#ddd'
+            }}>
+              <Text style={style.headerStyle}>{title}</Text>
+            </View>
+          )}
         sections={sections}
         keyExtractor={(index, item) => index + item.task}
       />
     );
 
     return (
-        <View style={{backgroundColor: '#EDDEA4'}}>
+        <View>
         {sectionList}
         </View>
     );
