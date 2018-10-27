@@ -14,6 +14,13 @@ export default class TodoListWidget extends Component {
     this.props.onUpdateTodo(newTodoList);
   };
 
+  deleteTodo = (todo) => {
+    const newTodoList = this.props.todos.toBuilder()
+                            .removeTodo(todo)
+                            .build();
+    this.props.onUpdateTodo(newTodoList);
+  };
+
   render() {
     const style = StyleSheet.create({
       headerStyle: {
@@ -41,7 +48,8 @@ export default class TodoListWidget extends Component {
         renderItem={
           ({item, index, section}) =>
             <TodoListItem key={index} todo={item}
-                              toggleTodo={this.updateTodo} /> }
+              onDeleteTodo={this.deleteTodo}
+              toggleTodo={this.updateTodo} /> }
         renderSectionHeader={
           ({section: {title}}) => (
             <View style={{
