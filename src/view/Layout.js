@@ -6,26 +6,42 @@ import TodoList from './../model/TodoList';
 import Header from './../view/Header';
 import TodoListWidget from './../view/TodoListWidget';
 import AddTodo from './../view/AddTodo.js';
+import Persistence from './../model/Persistence';
 
 export default class Layout extends Component {
-  state = {
-    showAddModal: false,
-    todoList: new TodoList([
-      new Todo("Take out the trash", new Date()),
-      new Todo("Feed the cat", new Date()),
-      new Todo("Do the dishes", new Date(), true),
-      new Todo("Take a really long walk. Think about Sean Paul Satre.", new Date(), true),
-    ]),
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showAddModal: false,
+      todoList: new TodoList([]),
+    };
+  }
+
+  componentDidMount() {
+    Persistence.read()
+               .then((content) => {
+                 const todos = TodoList.fromJson(content);
+                 this.setState({todoList: todos});
+               })
+               .catch((err) => {
+                 if (err.code != 'ENOENT') {
+                   console.warn(err);
+                 }
+               });
+  }
 
   addTodo = (todo) => {
     const todoListBuider = this.state.todoList.toBuilder();
     const newTodoList = todoListBuider.addTodo(todo).build();
-    this.setState({todoList: newTodoList});
+    this.updateTodoList(newTodoList);
   };
 
   updateTodoList = (todoList) => {
     this.setState({todoList});
+    const todoJson = todoList.toJson();
+    Persistence.write(todoJson)
+               .catch((err) => { console.warn(err)});
   };
 
   render() {

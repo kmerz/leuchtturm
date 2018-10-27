@@ -1,3 +1,5 @@
+import Todo from './Todo';
+
 class TodoList {
   constructor(todos) {
     this._value = { todos };
@@ -51,6 +53,21 @@ class TodoList {
         return daysBetween > 1 && daysBetween < 4;
       }
     ).sort(this.sort);
+  }
+
+  toJson() {
+    const objs = this._value.todos.map(x => x.toObject());
+    return JSON.stringify(objs);
+  }
+
+  static fromJson(json) {
+    const objs = JSON.parse(json);
+    const todos = objs.map(x => {
+      const {task, due, done} = x;
+      const date = new Date(due);
+      return new Todo(task, date, done);
+    });
+    return new TodoList(todos);
   }
 
   toBuilder() {

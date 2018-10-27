@@ -23,6 +23,10 @@ class Todo {
       .done(done);
   }
 
+  toObject() {
+    return this._value;
+  }
+
   static builder() {
     return new Builder()
       .done(false);
