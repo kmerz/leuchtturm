@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {Platform, Text, View, StyleSheet, CheckBox, TouchableNativeFeedback} from 'react-native';
 
-import DeleteModal from './DeleteModal';
+import EditTodoModal from './EditTodoModal';
 
 export default class TodoListItem extends Component {
   state = {
-    showDeleteModal: false,
+    showEditModal: false,
   };
 
   toggleTodo = () => {
@@ -40,17 +40,20 @@ export default class TodoListItem extends Component {
     return (
       <TouchableNativeFeedback
         onPress={this.toggleTodo}
-        onLongPress={() => this.setState({showDeleteModal: true})}
+        onLongPress={() => this.setState({showEditModal: true})}
         background={TouchableNativeFeedback.SelectableBackground()}>
         <View style={style.viewStyle}>
           <CheckBox
             style={style.checkBoxStyle}
             value={this.props.todo.done} />
           <Text style={style.textStyle}>{this.props.todo.task}</Text>
-          <DeleteModal showModal={this.state.showDeleteModal}
+          <EditTodoModal showModal={this.state.showEditModal}
             todo={this.props.todo}
+            onUpdateTodo={(newTodo) => {
+              this.props.toggleTodo(this.props.todo, newTodo);
+            }}
             onDelete={this.props.onDeleteTodo}
-            onClose={() => {this.setState({showDeleteModal: false})}} />
+            onClose={() => {this.setState({showEditModal: false})}} />
         </View>
       </TouchableNativeFeedback>
     );
