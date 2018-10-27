@@ -48,9 +48,10 @@ export default class AddTodo extends Component {
         <View style={{marginTop: 22}}>
         <View>
         <Text
-          style={{fontSize: 20, fontWeight: 'bold'}}
+          style={{fontSize: 20, fontWeight: 'bold', margin: 10}}
         >Todo:</Text>
         <TextInput
+          style={{margin: 10}}
           multiline
           placeholder="Add todo description..."
           onChangeText={this.onTodoChange}

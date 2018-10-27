@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, Text, View, Button} from 'react-native';
+import {Platform, Text, View, Button, ScrollView} from 'react-native';
 
 import Todo from './../model/Todo';
 import TodoList from './../model/TodoList';
@@ -36,10 +36,12 @@ export default class Layout extends Component {
           alignItems: 'stretch',
         }}>
         <Header />
-        <TodoListWidget
-          onUpdateTodo={this.updateTodoList}
-          todos={this.state.todoList}
-        />
+        <ScrollView>
+          <TodoListWidget
+            onUpdateTodo={this.updateTodoList}
+            todos={this.state.todoList}
+          />
+        </ScrollView>
         <Button
           onPress={() => this.setState({showAddModal: true})}
           title="Add Todo"

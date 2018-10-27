@@ -32,6 +32,7 @@ export default class TodoListWidget extends Component {
     const sections = [
       { title: "Today", data: this.props.todos.today },
       { title: "Tomorrow", data: this.props.todos.tomorrow },
+      { title: "Upcoming", data: this.props.todos.upcoming },
     ];
 
     const sectionList = (

@@ -43,6 +43,15 @@ class TodoList {
     ).sort(this.sort);
   }
 
+  get upcoming() {
+    const now = new Date();
+    return this._value.todos.filter(
+      todo => {
+        const daysBetween = this.daysBetween(now, todo.due);
+        return daysBetween > 1 && daysBetween < 4;
+      }
+    ).sort(this.sort);
+  }
 
   toBuilder() {
     const { todos } = this._value;
