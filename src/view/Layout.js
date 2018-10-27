@@ -1,19 +1,25 @@
 import React, {Component} from 'react';
-import {Platform, Text, View} from 'react-native';
+import {Platform, Text, View, Button} from 'react-native';
 
 import Todo from './../model/Todo';
 import TodoList from './../model/TodoList';
 import Header from './../view/Header';
 import TodoListWidget from './../view/TodoListWidget';
+import AddTodo from './../view/AddTodo.js';
 
 export default class Layout extends Component {
-  render() {
-    const todo1 = new Todo("this app needs to be really good, i will waste much time on it. allrighty thats gonna be so cool", new Date());
-    const dateTomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
-    const todo2 = new Todo("The world", dateTomorrow);
-    const todo3 = new Todo("The universe", dateTomorrow);
-    const todoList = new TodoList([todo1, todo2, todo2])
+  state = {
+    showAddModal: false,
+    todoList: new TodoList([]),
+  };
 
+  addTodo = (todo) => {
+    const todoListBuider = this.state.todoList.toBuilder();
+    const newTodoList = todoListBuider.addTodo(todo).build();
+    this.setState({todoList: newTodoList});
+  };
+
+  render() {
     return (
         <View style={{
           flex: 1,
@@ -21,7 +27,20 @@ export default class Layout extends Component {
           alignItems: 'stretch',
         }}>
         <Header />
-        <TodoListWidget todos={todoList}/>
+        <TodoListWidget todos={this.state.todoList}/>
+        <Button
+          onPress={() => this.setState({showAddModal: true})}
+          title="Add Todo"
+          color={"#00a390"}
+          style={{
+            alignSelf: 'flex-end',
+            position: 'absolute',
+            bottom: 35
+        }} />
+        <AddTodo modalVisible={this.state.showAddModal}
+          closeModal={() => { this.setState({showAddModal: false})}}
+          addTodo={this.addTodo}
+        />
         </View>
     );
   }

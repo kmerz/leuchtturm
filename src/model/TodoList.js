@@ -50,7 +50,14 @@ class Builder {
   }
 
   todos(todos) {
-    this.value.task = todos;
+    this.value.todos = todos;
+    return this;
+  }
+
+  addTodo(todo) {
+    const newTodos = this.value.todos.slice(0);
+    newTodos.push(todo);
+    this.value.todos = newTodos;
     return this;
   }
 
