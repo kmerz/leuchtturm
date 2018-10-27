@@ -19,6 +19,8 @@ export default class Layout extends Component {
   }
 
   componentDidMount() {
+    // Remove file if format changes
+    //Persistence.reset();
     Persistence.read()
                .then((content) => {
                  const todos = TodoList.fromJson(content);

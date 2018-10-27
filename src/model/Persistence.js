@@ -11,4 +11,9 @@ export default class Persistence {
     const path = RNFS.DocumentDirectoryPath + Persistence.DBFILE;
     return RNFS.writeFile(path, jsonContent);
   }
+
+  static reset() {
+    const path = RNFS.DocumentDirectoryPath + Persistence.DBFILE;
+    return RNFS.unlink(path);
+  }
 }
