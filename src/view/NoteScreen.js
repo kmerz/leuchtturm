@@ -34,7 +34,7 @@ export default class TodoScreen extends Component {
         <ScrollView>
           <NoteListWidget
             noteList={this.state.noteList}
-            updateNoteList={(newNotes) => this.setState({nodeList: newNotes})}
+            onUpdate={(newNotes) => this.setState({noteList: newNotes})}
           />
         </ScrollView>
         <Button

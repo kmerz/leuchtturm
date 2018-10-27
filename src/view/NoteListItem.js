@@ -2,10 +2,12 @@ import React, {Component} from 'react';
 import {Platform, Text, View, StyleSheet, TouchableNativeFeedback} from 'react-native';
 
 import ShowNote from './ShowNote';
+import EditNoteModal from './EditNoteModal';
 
 export default class NoteListItem extends Component {
   state = {
     showNoteModal: false,
+    showEditModal: false,
   };
 
   render() {
@@ -26,7 +28,7 @@ export default class NoteListItem extends Component {
     });
     return (
       <TouchableNativeFeedback
-        onLongPress={() => console.log("DELETE")}
+        onLongPress={() => this.setState({showEditModal: true}) }
         onPress={() => { this.setState({showNoteModal: true})}}
         background={TouchableNativeFeedback.SelectableBackground()}>
         <View style={style.viewStyle}>
@@ -34,6 +36,13 @@ export default class NoteListItem extends Component {
           <ShowNote note={this.props.note}
             showModal={this.state.showNoteModal}
             closeModal={() => { this.setState({showNoteModal: false})}} />
+          <EditNoteModal
+            note={this.props.note}
+            showModal={this.state.showEditModal}
+            closeModal={() => { this.setState({showEditModal: false})}}
+            onDeleteNote={this.props.onDelete}
+            updateNote={this.props.onUpdate}
+          />
         </View>
       </TouchableNativeFeedback>
     );

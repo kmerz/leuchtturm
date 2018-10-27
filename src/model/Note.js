@@ -12,7 +12,7 @@ export default class Note {
   }
 
   toBuilder () {
-    const { header, note } = this.value;
+    const { header, note } = this._value;
     return new Builder()
       .note(note)
       .header(header);
