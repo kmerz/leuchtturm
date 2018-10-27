@@ -4,6 +4,7 @@ import {Platform, View, Button, ScrollView} from 'react-native';
 import NoteListWidget from './NoteListWidget';
 import NoteList from '../model/NoteList';
 import Note from '../model/Note';
+import AddNote from './AddNote';
 
 export default class TodoScreen extends Component {
 
@@ -16,6 +17,13 @@ export default class TodoScreen extends Component {
       noteList: notes,
     };
   }
+
+  addNote = (newNote) => {
+    const newNotes = this.state.noteList.toBuilder()
+                         .addNote(newNote)
+                         .build();
+    this.setState({noteList: newNotes});
+  };
 
   render() {
     return (
@@ -39,6 +47,10 @@ export default class TodoScreen extends Component {
             position: 'absolute',
             bottom: 35
           }} />
+        <AddNote showModal={this.state.showAddModal}
+          addNote={this.addNote}
+          closeModal={() => { this.setState({ showAddModal: false })}}
+        />
       </View>
     );
   }

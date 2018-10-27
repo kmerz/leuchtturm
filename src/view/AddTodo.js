@@ -49,7 +49,7 @@ export default class AddTodo extends Component {
         <View>
         <Text
           style={{fontSize: 20, fontWeight: 'bold', margin: 10}}
-        >Todo:</Text>
+        >New Todo</Text>
         <TextInput
           style={{margin: 10}}
           multiline

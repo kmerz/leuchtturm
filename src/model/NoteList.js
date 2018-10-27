@@ -11,6 +11,15 @@ export default class NoteList {
     const objs = this._value.notes.map(x => x.toObject());
     return JSON.stringify(objs);
   }
+
+  toBuilder() {
+    return new Builder()
+      .notes(this._value.notes);
+  }
+
+  static builder() {
+    return new Builder();
+  }
 }
 
 class Builder {
@@ -20,6 +29,7 @@ class Builder {
 
   notes(notes) {
     this.value.notes = notes;
+    return this;
   }
 
   addNote(note) {
