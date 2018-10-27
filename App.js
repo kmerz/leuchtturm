@@ -1,20 +1,20 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, {Component} from 'react';
-import {Platform, Text, View} from 'react-native';
+import {Platform, View} from 'react-native';
 
-import Layout from './src/view/Layout';
+import Header from './src/view/Header';
+import Navigation from './src/view/Navigation';
 
 export default class App extends Component<Props> {
   render() {
     return (
-      <Layout />
+      <View style={{
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'stretch',
+      }}>
+        <Header />
+        <Navigation />
+      </View>
     );
   }
 }

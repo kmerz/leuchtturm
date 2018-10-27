@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
-import {Platform, Text, View, Button, ScrollView} from 'react-native';
+import {Platform, View, Button, ScrollView} from 'react-native';
 
 import Todo from './../model/Todo';
 import TodoList from './../model/TodoList';
-import Header from './../view/Header';
 import TodoListWidget from './../view/TodoListWidget';
 import AddTodo from './../view/AddTodo.js';
 import Persistence from './../model/Persistence';
 
-export default class Layout extends Component {
+export default class TodoScreen extends Component {
   constructor(props) {
     super(props);
 
@@ -53,7 +52,6 @@ export default class Layout extends Component {
           flexDirection: 'column',
           alignItems: 'stretch',
         }}>
-        <Header />
         <ScrollView>
           <TodoListWidget
             onUpdateTodo={this.updateTodoList}
