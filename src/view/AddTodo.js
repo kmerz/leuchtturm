@@ -31,8 +31,8 @@ export default class AddTodo extends Component {
 
   onAddTodo = () => {
     this.props.addTodo(new Todo(this.state.todo, this.state.due));
-    this.setState({todo: "", due: new Date()});
     this.props.closeModal();
+    this.setState({todo: "", due: new Date()});
   };
 
   render() {
@@ -57,11 +57,10 @@ export default class AddTodo extends Component {
         />
         <Button
           onPress={this.datePicker}
-      title="Select due"
-      color={"#97ead2"} />
+          title="Select due"
+          color={"#97ead2"} />
         <Button
-          onPress={() => {
-          }}
+          onPress={this.onAddTodo}
           title="Add Todo"
           color={"#00a390"} />
         <Button
