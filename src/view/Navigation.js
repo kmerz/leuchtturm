@@ -10,11 +10,21 @@ export default class Navigation extends Component {
     selected: 'todo',
   };
 
+  onTodosUpdate = (todos) => {
+    this.props.onUpdate(todos, this.props.notes);
+  };
+
+  onNotesUpdate = (notes) => {
+    this.props.onUpdate(this.props.todos, notes);
+  };
+
   navItem() {
     if (this.state.selected == 'todo') {
-      return (<TodoScreen />);
+      return (<TodoScreen onUpdate={this.onTodosUpdate}
+                todos={this.props.todos} />);
     } else {
-      return (<NoteScreen />);
+      return (<NoteScreen onUpdate={this.onNotesUpdate}
+                notes={this.props.notes} />);
     }
   }
 

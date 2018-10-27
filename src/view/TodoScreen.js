@@ -5,7 +5,6 @@ import Todo from './../model/Todo';
 import TodoList from './../model/TodoList';
 import TodoListWidget from './../view/TodoListWidget';
 import AddTodo from './../view/AddTodo.js';
-import Persistence from './../model/Persistence';
 
 export default class TodoScreen extends Component {
   constructor(props) {
@@ -13,36 +12,13 @@ export default class TodoScreen extends Component {
 
     this.state = {
       showAddModal: false,
-      todoList: new TodoList([]),
     };
   }
 
-  componentDidMount() {
-    // Remove file if format changes
-    //Persistence.reset();
-    Persistence.read()
-               .then((content) => {
-                 const todos = TodoList.fromJson(content);
-                 this.setState({todoList: todos});
-               })
-               .catch((err) => {
-                 if (err.code != 'ENOENT') {
-                   console.warn(err);
-                 }
-               });
-  }
-
   addTodo = (todo) => {
-    const todoListBuider = this.state.todoList.toBuilder();
+    const todoListBuider = this.props.todos.toBuilder();
     const newTodoList = todoListBuider.addTodo(todo).build();
-    this.updateTodoList(newTodoList);
-  };
-
-  updateTodoList = (todoList) => {
-    this.setState({todoList});
-    const todoJson = todoList.toJson();
-    Persistence.write(todoJson)
-               .catch((err) => { console.warn(err)});
+    this.props.onUpdate(newTodoList);
   };
 
   render() {
@@ -54,8 +30,8 @@ export default class TodoScreen extends Component {
         }}>
         <ScrollView>
           <TodoListWidget
-            onUpdateTodo={this.updateTodoList}
-            todos={this.state.todoList}
+            onUpdateTodo={this.props.onUpdate}
+            todos={this.props.todos}
           />
         </ScrollView>
         <Button

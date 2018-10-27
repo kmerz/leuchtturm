@@ -6,22 +6,19 @@ import NoteList from '../model/NoteList';
 import Note from '../model/Note';
 import AddNote from './AddNote';
 
-export default class TodoScreen extends Component {
+export default class NoteScreen extends Component {
   constructor(props) {
     super(props);
-    const note1 = new Note("Franz macht blaue", " A rather long story");
-    const notes = new NoteList([note1]);
     this.state = {
       showAddModal: false,
-      noteList: notes,
     };
   }
 
   addNote = (newNote) => {
-    const newNotes = this.state.noteList.toBuilder()
+    const newNotes = this.props.notes.toBuilder()
                          .addNote(newNote)
                          .build();
-    this.setState({noteList: newNotes});
+    this.props.onUpdate(newNotes);
   };
 
   render() {
@@ -33,8 +30,8 @@ export default class TodoScreen extends Component {
       }}>
         <ScrollView>
           <NoteListWidget
-            noteList={this.state.noteList}
-            onUpdate={(newNotes) => this.setState({noteList: newNotes})}
+            noteList={this.props.notes}
+            onUpdate={this.props.onUpdate}
           />
         </ScrollView>
         <Button

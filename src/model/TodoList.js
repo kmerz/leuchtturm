@@ -55,13 +55,11 @@ class TodoList {
     ).sort(this.sort);
   }
 
-  toJson() {
-    const objs = this._value.todos.map(x => x.toObject());
-    return JSON.stringify(objs);
+  toObject() {
+    return this._value.todos.map(x => x.toObject());
   }
 
-  static fromJson(json) {
-    const objs = JSON.parse(json);
+  static fromJson(objs) {
     const todos = objs.map(x => {
       const {task, due, done} = x;
       const date = new Date(due);

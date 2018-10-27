@@ -1,3 +1,5 @@
+import Note from './Note';
+
 export default class NoteList {
   constructor(notes) {
     this._value = { notes };
@@ -7,9 +9,16 @@ export default class NoteList {
     return this._value.notes;
   }
 
-  toJson() {
-    const objs = this._value.notes.map(x => x.toObject());
-    return JSON.stringify(objs);
+  toObject() {
+    return this._value.notes.map(x => x.toObject());
+  }
+
+  static fromJson(objs) {
+    const notes = objs.map(x => {
+      const { header, note } = x;
+      return new Note(header, note);
+    });
+    return new NoteList(notes);
   }
 
   toBuilder() {
