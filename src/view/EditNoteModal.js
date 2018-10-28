@@ -29,7 +29,7 @@ export default class EditNoteModal extends Component {
             .header(header)
             .note(note)
             .build();
-    this.props.updateNote(this.props.note, newNote);
+    this.props.updateNote(newNote);
     this.props.closeModal();
   };
 

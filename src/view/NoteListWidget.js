@@ -5,10 +5,9 @@ import NoteListItem from './NoteListItem';
 
 export default class NoteListWidget extends Component {
 
-  onUpdate = (oldNote, newNote) => {
+  onUpdate = (newNote) => {
     const newNotes = this.props.noteList.toBuilder()
-                         .removeNote(oldNote)
-                         .addNote(newNote)
+                         .updateNote(newNote)
                          .build();
     this.props.onUpdate(newNotes);
   };

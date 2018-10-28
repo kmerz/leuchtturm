@@ -1,6 +1,8 @@
+import uuid from 'uuid/v4';
+
 export default class Note {
-  constructor(header, note) {
-    this._value = { header, note };
+  constructor(header, note, id = uuid()) {
+    this._value = { header, note, id};
   }
 
   get header() {
@@ -11,15 +13,21 @@ export default class Note {
     return this._value.note;
   }
 
+  get id() {
+    return this._value.id;
+  }
+
   toBuilder () {
-    const { header, note } = this._value;
+    const { header, note, id} = this._value;
     return new Builder()
+      .id(id)
       .note(note)
       .header(header);
   }
 
   static builder() {
-    return new Builder();
+    return new Builder()
+      .id(uuid());
   }
 
   toObject() {
@@ -42,8 +50,13 @@ class Builder {
     return this;
   }
 
+  id(id) {
+    this.value.id = id;
+    return this;
+  }
+
   build() {
-    const { header, note } = this.value;
-    return new Note(header, note);
+    const { header, note, id } = this.value;
+    return new Note(header, note, id);
   }
 }

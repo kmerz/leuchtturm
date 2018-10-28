@@ -17,7 +17,12 @@ export default class AddNote extends Component {
   };
 
   onAddNote = () => {
-    this.props.addNote(new Note(this.state.header, this.state.note));
+    const { header, note } = this.state;
+    const newNote = Note.builder()
+                        .header(header)
+                        .note(note)
+                        .build();
+    this.props.addNote(newNote);
     this.props.closeModal();
     this.setState({header: "", note: ""});
   };

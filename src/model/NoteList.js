@@ -6,7 +6,15 @@ export default class NoteList {
   }
 
   get notes() {
-    return this._value.notes;
+    return this._value.notes.sort((a, b) => {
+      if(a.header > b.header) {
+        return 1;
+      }
+      if (a.header < b.header) {
+        return -1;
+      }
+      return 0;
+    });
   }
 
   toObject() {
@@ -15,8 +23,8 @@ export default class NoteList {
 
   static fromJson(objs) {
     const notes = objs.map(x => {
-      const { header, note } = x;
-      return new Note(header, note);
+      const { header, note, id } = x;
+      return new Note(header, note, id);
     });
     return new NoteList(notes);
   }
@@ -50,9 +58,20 @@ class Builder {
 
   removeNote(note) {
     const newNotes = this.value.notes.slice(0);
-    const index = newNotes.findIndex((n) => n.header === note.header);
+    const index = newNotes.findIndex((n) => n.id === note.id);
     if (index > -1) {
       newNotes.splice(index, 1);
+    }
+    this.value.notes = newNotes;
+    return this;
+  }
+
+  updateNote(note) {
+    const newNotes = this.value.notes.slice(0);
+    const index = newNotes.findIndex((n) => n.id === note.id);
+    if (index > -1) {
+      newNotes.splice(index, 1);
+      newNotes.splice(index, 0, note);
     }
     this.value.notes = newNotes;
     return this;
