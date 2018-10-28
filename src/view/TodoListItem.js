@@ -43,6 +43,7 @@ export default class TodoListItem extends Component {
         <View style={style.viewStyle}>
           <CheckBox
             style={style.checkBoxStyle}
+            onValueChange={this.toggleTodo}
             value={this.props.todo.done} />
           <Text style={style.textStyle}>{this.props.todo.task}</Text>
           <EditTodoModal showModal={this.state.showEditModal}

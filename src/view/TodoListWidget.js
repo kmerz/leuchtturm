@@ -46,20 +46,21 @@ export default class TodoListWidget extends Component {
       style={style.sectinoStyle}
         renderItem={
           ({item, index, section}) =>
-            <TodoListItem key={index} todo={item}
+            <TodoListItem key={item.id} todo={item}
               onDeleteTodo={this.deleteTodo}
               updateTodo={this.updateTodo} /> }
         renderSectionHeader={
           ({section: {title}}) => (
-            <View style={{
+            <View key={title} style={{
               borderWidth: 1,
               borderColor: '#ddd'
-            }}>
+            }}
+              >
               <Text style={style.headerStyle}>{title}</Text>
             </View>
           )}
         sections={sections}
-        keyExtractor={(index, item) => index + item.task}
+        keyExtractor={(index, item) => item.id}
       />
     );
 
