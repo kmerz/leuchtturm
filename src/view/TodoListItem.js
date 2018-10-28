@@ -10,9 +10,7 @@ export default class TodoListItem extends Component {
 
   toggleTodo = () => {
     const newState = !this.props.todo.done;
-    this.props.toggleTodo(
-      this.props.todo,
-      this.props.todo.toBuilder().done(newState).build());
+    this.props.updateTodo(this.props.todo.toBuilder().done(newState).build());
   };
 
   render() {
@@ -50,7 +48,7 @@ export default class TodoListItem extends Component {
           <EditTodoModal showModal={this.state.showEditModal}
             todo={this.props.todo}
             onUpdateTodo={(newTodo) => {
-              this.props.toggleTodo(this.props.todo, newTodo);
+              this.props.updateTodo(newTodo);
             }}
             onDelete={this.props.onDeleteTodo}
             onClose={() => {this.setState({showEditModal: false})}} />

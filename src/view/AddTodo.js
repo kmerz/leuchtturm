@@ -30,7 +30,11 @@ export default class AddTodo extends Component {
   }
 
   onAddTodo = () => {
-    this.props.addTodo(new Todo(this.state.todo, this.state.due));
+    const newTodo = Todo.builder()
+                        .task(this.state.todo)
+                        .due(this.state.due)
+                        .build();
+    this.props.addTodo(newTodo);
     this.props.closeModal();
     this.setState({todo: "", due: new Date()});
   };

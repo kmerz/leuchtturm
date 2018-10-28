@@ -61,9 +61,14 @@ class TodoList {
 
   static fromJson(objs) {
     const todos = objs.map(x => {
-      const {task, due, done} = x;
+      const {task, due, done, id} = x;
       const date = new Date(due);
-      return new Todo(task, date, done);
+      return Todo.builder()
+               .task(task)
+               .due(date)
+               .done(done)
+               .id(id)
+               .build();
     });
     return new TodoList(todos);
   }
@@ -101,6 +106,17 @@ class Builder {
     const todoIndex = newTodos.findIndex((t) => t.task === todo.task);
     if (todoIndex > -1) {
       newTodos.splice(todoIndex, 1);
+    }
+    this.value.todos = newTodos;
+    return this;
+  }
+
+  updateTodo(todo) {
+    const newTodos = this.value.todos.slice(0);
+    const index = newTodos.findIndex((t) => t.id === todo.id);
+    if (index > -1) {
+      newTodos.splice(index, 1);
+      newTodos.splice(index, 0, todo);
     }
     this.value.todos = newTodos;
     return this;

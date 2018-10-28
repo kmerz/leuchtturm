@@ -72,10 +72,13 @@ export default class EditTodoModal extends Component {
                 title={"Update"}
                 color={"#032b2f"}
                 onPress={() => {
-                  const {task, due} = this.state;
-                  const newTodo = new Todo(task, due, this.props.todo.done);
-                  this.props.onUpdateTodo(newTodo);
-                  this.props.onClose();
+                    const {task, due} = this.state;
+                    const newTodo = this.props.todo.toBuilder()
+                                        .task(task)
+                                        .due(due)
+                                        .build();
+                    this.props.onUpdateTodo(newTodo);
+                    this.props.onClose();
                 }} />
               <Button
                 title={"Delete"}

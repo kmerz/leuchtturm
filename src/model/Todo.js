@@ -1,6 +1,8 @@
-class Todo {
-  constructor(task, due, done = false) {
-    this._value = { task, due, done };
+import uuid from 'uuid/v4';
+
+export default class Todo {
+  constructor(task, due, id = uuid(), done = false) {
+    this._value = { id, task, due, done };
   }
 
   get task() {
@@ -15,9 +17,14 @@ class Todo {
     return this._value.done;
   }
 
+  get id() {
+    return this._value.id;
+  }
+
   toBuilder() {
-    const { task, due, done } = this._value;
+    const { task, due, done, id } = this._value;
     return new Builder()
+      .id(id)
       .task(task)
       .due(due)
       .done(done);
@@ -29,6 +36,7 @@ class Todo {
 
   static builder() {
     return new Builder()
+      .id(uuid())
       .done(false);
   }
 }
@@ -53,10 +61,13 @@ class Builder {
     return this;
   }
 
+  id(id) {
+    this.value.id = id;
+    return this;
+  }
+
   build() {
-    const { task, due, done } = this.value;
-    return new Todo(task, due, done);
+    const { id, task, due, done } = this.value;
+    return new Todo(task, due, id, done);
   }
 }
-
-export default Todo;

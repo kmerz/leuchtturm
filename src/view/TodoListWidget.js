@@ -6,10 +6,9 @@ import TodoListItem from './../view/TodoListItem';
 
 export default class TodoListWidget extends Component {
 
-  updateTodo = (oldTodo, newTodo) => {
+  updateTodo = (newTodo) => {
     const newTodoList = this.props.todos.toBuilder()
-                            .removeTodo(oldTodo)
-                            .addTodo(newTodo)
+                            .updateTodo(newTodo)
                             .build();
     this.props.onUpdateTodo(newTodoList);
   };
@@ -49,7 +48,7 @@ export default class TodoListWidget extends Component {
           ({item, index, section}) =>
             <TodoListItem key={index} todo={item}
               onDeleteTodo={this.deleteTodo}
-              toggleTodo={this.updateTodo} /> }
+              updateTodo={this.updateTodo} /> }
         renderSectionHeader={
           ({section: {title}}) => (
             <View style={{
