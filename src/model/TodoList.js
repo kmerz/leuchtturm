@@ -34,7 +34,7 @@ class TodoList {
   get today() {
     const now = new Date();
     return this._value.todos.filter(
-      todo => this.daysBetween(now, todo.due) === 0
+      todo => this.daysBetween(now, todo.due) <= 0
     ).sort(this.sort);
   }
 
